@@ -1,0 +1,6 @@
+tensorflow-gpu==2.2.0
+Pillow==7.1.2
+numpy==1.18.5
+opencv-python==4.2.0.34
+matplotlib==3.2.1
+Keras==2.3.1
