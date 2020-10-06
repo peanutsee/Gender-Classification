@@ -17,8 +17,7 @@ class Model:
     # Image Processing
     def process(self, image):
         img = Image.fromarray(image)
-        img_rescaled = img.resize((128, 128))
-        img_array = np.asarray(img_rescaled)
+        img_array = np.asarray(img)
         img_normalized = img_array / 255.0
         img_nparray = np.asarray(img_normalized).astype('float16')
         img_dim = np.expand_dims(img_nparray, axis=0)
