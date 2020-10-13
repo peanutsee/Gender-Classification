@@ -11,7 +11,6 @@ def output_prediction(image):
     image = model.process(image)
     return model.predictor(mod, image)
 
-
 # Load Classifiers for Facial Detection
 face_cascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
 
@@ -36,7 +35,9 @@ while cap.isOpened():
     gender = 'female'
 
     for fx, fy, fw, fh in face:
-        face_frame = frame[fy-10:fy+fh+15, fx:fx+fw]
+        fy -= 40
+        fh += 50
+        face_frame = frame[fy:fy+fh, fx:fx+fw]
         crop_img = cv2.resize(face_frame, (128, 128))
         cv2.imshow('crop', crop_img)
 
@@ -45,12 +46,17 @@ while cap.isOpened():
                             (255, 0, 0), 1)
 
 
-        f, m = output_prediction(crop_img)
-        print(f, m)
+        pred = output_prediction(crop_img)
+        print(pred)
 
-        cv2.putText(frame,
-                    'Female {:.2f}% Male {:.2f}%'.format(f * 100, m * 100), (fx + 10, fy - 10),
-                    cv2.FONT_HERSHEY_COMPLEX, 0.5, (0, 0, 0), 1)  # Face Text
+        if pred == 1:
+            cv2.putText(frame,
+                        'Male', (fx + 10, fy - 10),
+                        cv2.FONT_HERSHEY_COMPLEX, 0.5, (255, 255, 0), 1)  # Face Text
+        else:
+            cv2.putText(frame,
+                        'Female', (fx + 10, fy - 10),
+                        cv2.FONT_HERSHEY_COMPLEX, 0.5, (255, 255, 0), 1)  # Face Text
     if ret:
         cv2.imshow('Video Capture', frame)
         k = cv2.waitKey(1) & 0xFF
