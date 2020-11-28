@@ -10,3 +10,7 @@ DID NOT INCLUDE MODEL WEIGHTS IN REPO
 # Problems
 1. Livefeed with very high latency.
 2. Algorithm runs into memory error after listening for long enough. 
+
+# Todo
+1. Fix problems 
+
